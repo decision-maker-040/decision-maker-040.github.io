@@ -1,1 +1,1073 @@
-decision-maker-040
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Spin the Wheel: Decision Maker</title>
+  <meta name="description" content="Spin the Wheel: Decision Maker is a fun random picker for making quick decisions, creating random teams, picking winners, rolling dice, and flipping a coin.">
+  <meta name="theme-color" content="#7C5CFC">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --purple: #7c5cfc;
+      --purple-dark: #6042df;
+      --pink: #ff6fae;
+      --yellow: #ffd84d;
+      --orange: #ff9f43;
+      --blue: #55b8ff;
+      --green: #55d98b;
+      --text: #29263d;
+      --muted: #716d82;
+      --bg: #faf9ff;
+      --card: #ffffff;
+      --border: #ece9f7;
+      --shadow: 0 18px 50px rgba(77, 58, 150, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Nunito", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Background Decorations */
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .blob.one {
+      width: 420px;
+      height: 420px;
+      background: #eee9ff;
+      top: -160px;
+      left: -170px;
+    }
+
+    .blob.two {
+      width: 330px;
+      height: 330px;
+      background: #fff0f6;
+      top: 220px;
+      right: -150px;
+    }
+
+    .blob.three {
+      width: 280px;
+      height: 280px;
+      background: #fff8d9;
+      bottom: 100px;
+      left: -140px;
+    }
+
+    /* Navigation */
+
+    nav {
+      position: relative;
+      z-index: 10;
+      padding: 22px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      font-size: 19px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #8d70ff, #6849e7);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 23px;
+      box-shadow: 0 8px 20px rgba(124, 92, 252, 0.28);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover {
+      color: var(--purple);
+    }
+
+    .nav-download {
+      padding: 11px 19px;
+      border-radius: 14px;
+      color: white !important;
+      background: var(--purple);
+      box-shadow: 0 8px 20px rgba(124, 92, 252, 0.22);
+    }
+
+    /* Hero */
+
+    .hero {
+      position: relative;
+      min-height: 690px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 60px;
+      align-items: center;
+      padding: 65px 0 95px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 1px solid var(--border);
+      padding: 8px 15px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--purple);
+      box-shadow: 0 8px 25px rgba(70, 55, 130, 0.07);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: "Baloo 2", sans-serif;
+      font-size: clamp(48px, 6vw, 76px);
+      line-height: 0.98;
+      letter-spacing: -1.5px;
+      margin-bottom: 22px;
+      max-width: 650px;
+    }
+
+    .hero h1 span {
+      color: var(--purple);
+    }
+
+    .hero-text {
+      max-width: 590px;
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-bottom: 26px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 52px;
+      padding: 0 23px;
+      border-radius: 16px;
+      font-weight: 900;
+      transition: 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      color: white;
+      background: var(--purple);
+      box-shadow: 0 12px 28px rgba(124, 92, 252, 0.28);
+    }
+
+    .button-secondary {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .platforms {
+      display: flex;
+      gap: 18px;
+      color: #8a8699;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Wheel Illustration */
+
+    .wheel-area {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 470px;
+    }
+
+    .wheel-shadow {
+      position: absolute;
+      width: 390px;
+      height: 55px;
+      bottom: 35px;
+      background: rgba(49, 36, 100, 0.11);
+      filter: blur(22px);
+      border-radius: 50%;
+    }
+
+    .wheel {
+      position: relative;
+      width: 365px;
+      height: 365px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ff6fae 0deg 45deg,
+        #ffd84d 45deg 90deg,
+        #55d98b 90deg 135deg,
+        #55b8ff 135deg 180deg,
+        #9b7cff 180deg 225deg,
+        #ff9f43 225deg 270deg,
+        #ff7e8f 270deg 315deg,
+        #75d9df 315deg 360deg
+      );
+      border: 12px solid white;
+      box-shadow: 0 25px 60px rgba(72, 55, 143, 0.22);
+      transform: rotate(-12deg);
+    }
+
+    .wheel::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 50%;
+      border: 4px dashed rgba(255,255,255,0.8);
+    }
+
+    .wheel-center {
+      position: absolute;
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: white;
+      border: 7px solid #f0ecff;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      color: var(--purple);
+      font-size: 28px;
+      box-shadow: 0 8px 20px rgba(50, 40, 100, 0.18);
+      z-index: 3;
+    }
+
+    .pointer {
+      position: absolute;
+      top: 17px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-top: 35px solid var(--text);
+      z-index: 5;
+      filter: drop-shadow(0 5px 3px rgba(0,0,0,0.15));
+    }
+
+    .floating {
+      position: absolute;
+      background: white;
+      border-radius: 18px;
+      padding: 12px 17px;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: var(--shadow);
+      z-index: 5;
+    }
+
+    .floating.one {
+      top: 55px;
+      left: 10px;
+      transform: rotate(-7deg);
+    }
+
+    .floating.two {
+      right: 0;
+      top: 145px;
+      transform: rotate(7deg);
+    }
+
+    .floating.three {
+      bottom: 55px;
+      left: 15px;
+      transform: rotate(5deg);
+    }
+
+    /* Sections */
+
+    section {
+      position: relative;
+      padding: 95px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 52px;
+    }
+
+    .eyebrow {
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: 1.7px;
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .section-heading h2 {
+      font-family: "Baloo 2", sans-serif;
+      font-size: 48px;
+      line-height: 1.05;
+      margin-bottom: 13px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    /* Feature Cards */
+
+    .features {
+      background: white;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      padding: 28px;
+      background: white;
+      transition: 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      font-size: 28px;
+      margin-bottom: 18px;
+    }
+
+    .pink { background: #fff0f6; }
+    .yellow { background: #fff8d9; }
+    .green { background: #eafff2; }
+    .blue { background: #eaf7ff; }
+    .purple { background: #f0edff; }
+    .orange { background: #fff1e3; }
+
+    .feature-card h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* How It Works */
+
+    .how {
+      background: #f6f4ff;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      max-width: 950px;
+      margin: auto;
+    }
+
+    .step {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .step-number {
+      width: 66px;
+      height: 66px;
+      border-radius: 22px;
+      background: var(--purple);
+      color: white;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 20px;
+      font-family: "Baloo 2", sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      box-shadow: 0 10px 25px rgba(124, 92, 252, 0.25);
+    }
+
+    .step h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* Use Cases */
+
+    .use-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .use-card {
+      min-height: 125px;
+      border-radius: 22px;
+      padding: 23px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: white;
+    }
+
+    .use-card strong {
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .use-card span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* CTA */
+
+    .download {
+      padding: 85px 0;
+      background: linear-gradient(135deg, #6e50ed, #9175ff);
+      color: white;
+      overflow: hidden;
+    }
+
+    .download::before,
+    .download::after {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 40px solid rgba(255,255,255,0.07);
+    }
+
+    .download::before {
+      left: -100px;
+      top: -130px;
+    }
+
+    .download::after {
+      right: -100px;
+      bottom: -150px;
+    }
+
+    .download-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .download h2 {
+      font-family: "Baloo 2", sans-serif;
+      font-size: 52px;
+      line-height: 1;
+      margin-bottom: 15px;
+    }
+
+    .download p {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 28px;
+    }
+
+    .download-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: var(--purple);
+      padding: 15px 27px;
+      border-radius: 17px;
+      font-weight: 900;
+      box-shadow: 0 15px 35px rgba(45, 30, 110, 0.25);
+      transition: 0.2s ease;
+    }
+
+    .download-button:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+
+    footer {
+      background: #211d35;
+      color: #aaa5b9;
+      padding: 35px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-brand {
+      color: white;
+      font-weight: 900;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 22px;
+      font-size: 14px;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .copyright {
+      font-size: 13px;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .hero-text {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons,
+      .platforms {
+        justify-content: center;
+      }
+
+      .wheel-area {
+        min-height: 430px;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .use-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      nav {
+        padding: 15px 0;
+      }
+
+      .nav-links a:not(.nav-download) {
+        display: none;
+      }
+
+      .brand {
+        font-size: 16px;
+      }
+
+      .brand-icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid {
+        padding: 50px 0 70px;
+      }
+
+      .hero h1 {
+        font-size: 52px;
+      }
+
+      .hero-text {
+        font-size: 16px;
+      }
+
+      .wheel {
+        width: 290px;
+        height: 290px;
+      }
+
+      .wheel-center {
+        width: 68px;
+        height: 68px;
+      }
+
+      .wheel-shadow {
+        width: 300px;
+      }
+
+      .floating {
+        font-size: 12px;
+        padding: 9px 12px;
+      }
+
+      .floating.one {
+        left: 0;
+      }
+
+      .floating.two {
+        right: 0;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+
+      .section-heading h2 {
+        font-size: 39px;
+      }
+
+      .feature-grid,
+      .steps,
+      .use-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .download h2 {
+        font-size: 42px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <div class="container nav-inner">
+        <a href="#" class="brand">
+          <div class="brand-icon">🎡</div>
+          <span>Spin the Wheel</span>
+        </a>
+
+
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#download" class="nav-download">Download</a>
+    </div>
+  </div>
+</nav>
+
+
+  </header>
+
+  <main>
+
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+
+  <div class="container hero-grid">
+
+    <div>
+      <div class="badge">🎯 Your next decision starts here</div>
+
+      <h1>
+        Let the wheel
+        <span>decide for you!</span>
+      </h1>
+
+      <p class="hero-text">
+        Spin the Wheel: Decision Maker is a fun and easy-to-use random picker
+        that helps you make quick choices, create random teams, pick winners,
+        roll dice, and flip a coin.
+      </p>
+
+      <div class="hero-buttons">
+        <!-- Replace # with your actual store URL -->
+        <a href="#" class="button button-primary">
+          📲 Download App
+        </a>
+
+        <a href="#features" class="button button-secondary">
+          Explore Features
+        </a>
+      </div>
+
+      <div class="platforms">
+        <span>✓ Easy to use</span>
+        <span>✓ Fast random results</span>
+        <span>✓ Custom wheels</span>
+      </div>
+    </div>
+
+    <div class="wheel-area">
+
+      <div class="floating one">🍕 What should we eat?</div>
+      <div class="floating two">🏆 Pick a winner!</div>
+      <div class="floating three">👥 Create teams</div>
+
+      <div class="wheel-shadow"></div>
+
+      <div class="pointer"></div>
+
+      <div class="wheel">
+        <div class="wheel-center">🎯</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURES -->
+
+<section class="features" id="features">
+
+  <div class="container">
+
+    <div class="section-heading">
+      <div class="eyebrow">Everything you need</div>
+      <h2>One app. So many ways to choose.</h2>
+      <p>
+        From everyday decisions to games and group activities,
+        get a random result whenever you need one.
+      </p>
+    </div>
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon pink">🎡</div>
+        <h3>Spin the Wheel</h3>
+        <p>
+          Add names, food, activities, places, tasks, or anything you want.
+          Spin the wheel and let chance make the choice.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon blue">👥</div>
+        <h3>Random Teams</h3>
+        <p>
+          Quickly divide participants into random teams or groups for games,
+          sports, classrooms, parties, and group activities.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon yellow">🏆</div>
+        <h3>Pick a Winner</h3>
+        <p>
+          Randomly select a winner from a list of participants for giveaways,
+          raffles, contests, games, and fun challenges.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon green">🎲</div>
+        <h3>Dice Games</h3>
+        <p>
+          Roll virtual dice whenever you need random numbers for games,
+          challenges, or quick decisions.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon orange">🪙</div>
+        <h3>Flip a Coin</h3>
+        <p>
+          Stuck between two options? Flip a virtual coin and get a simple
+          heads-or-tails result in seconds.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon purple">🎨</div>
+        <h3>Custom Wheels</h3>
+        <p>
+          Create personalized wheels with your own choices and save different
+          decision wheels for different situations.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- HOW IT WORKS -->
+
+<section class="how" id="how">
+
+  <div class="container">
+
+    <div class="section-heading">
+      <div class="eyebrow">Simple & fun</div>
+      <h2>Make any decision in three steps.</h2>
+      <p>
+        No complicated setup. Add your options, spin, and let the app choose.
+      </p>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Add Your Choices</h3>
+        <p>
+          Enter names, foods, activities, places, tasks, or any options
+          you want to include.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Spin the Wheel</h3>
+        <p>
+          Give the wheel a spin and enjoy the anticipation as it randomly
+          selects an option.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Get Your Result</h3>
+        <p>
+          The wheel picks a random result and helps you move forward
+          without overthinking.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- USE CASES -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-heading">
+      <div class="eyebrow">Perfect for every moment</div>
+      <h2>What should we choose today?</h2>
+      <p>
+        Use Spin the Wheel whenever there are too many choices
+        and you just want an easy answer.
+      </p>
+    </div>
+
+    <div class="use-grid">
+
+      <div class="use-card">
+        <strong>🍕 Dinner</strong>
+        <span>Choose what to eat</span>
+      </div>
+
+      <div class="use-card">
+        <strong>🎮 Games</strong>
+        <span>Pick who goes first</span>
+      </div>
+
+      <div class="use-card">
+        <strong>🏃 Activities</strong>
+        <span>Decide what to do</span>
+      </div>
+
+      <div class="use-card">
+        <strong>👤 Names</strong>
+        <span>Choose someone randomly</span>
+      </div>
+
+      <div class="use-card">
+        <strong>🏆 Giveaways</strong>
+        <span>Select a random winner</span>
+      </div>
+
+      <div class="use-card">
+        <strong>👥 Teams</strong>
+        <span>Split people into groups</span>
+      </div>
+
+      <div class="use-card">
+        <strong>🎲 Challenges</strong>
+        <span>Roll the dice</span>
+      </div>
+
+      <div class="use-card">
+        <strong>🪙 Decisions</strong>
+        <span>Heads or tails?</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- DOWNLOAD -->
+
+<section class="download" id="download">
+
+  <div class="container">
+
+    <div class="download-inner">
+
+      <h2>Your next decision is just one spin away.</h2>
+
+      <p>
+        Stop overthinking. Create your wheel, add your choices,
+        and let chance decide!
+      </p>
+
+      <!-- Replace # with Google Play / App Store URL -->
+      <a href="#" class="download-button">
+        📲 Download Spin the Wheel
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+
+<div class="container footer-inner">
+
+  <div>
+    <div class="footer-brand">🎡 Spin the Wheel: Decision Maker</div>
+    <div class="copyright">
+      © 2026 All rights reserved.
+    </div>
+  </div>
+
+  <div class="footer-links">
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+
+</div>
+
+
+  </footer>
+
+</body>
+</html>
